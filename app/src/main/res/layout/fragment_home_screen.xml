@@ -44,7 +44,7 @@
         >
 
         <Button
-            android:id="@+id/easy_mode"
+            android:id="@+id/easy_mode_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,22 +54,22 @@
             />
 
         <Button
-            android:id="@+id/medium_mode"
+            android:id="@+id/medium_mode_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/easy_mode"
+            app:layout_constraintTop_toBottomOf="@id/easy_mode_btn"
             android:text="@string/medium_difficulty_text"
             />
 
         <Button
-            android:id="@+id/hard_mode"
+            android:id="@+id/hard_mode_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/medium_mode"
+            app:layout_constraintTop_toBottomOf="@id/medium_mode_btn"
             android:text="@string/hard_difficulty_text"
             />
 
@@ -100,7 +100,7 @@
         >
 
         <Button
-            android:id="@+id/high_scores"
+            android:id="@+id/high_scores_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
