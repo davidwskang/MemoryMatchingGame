@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    >
 
     <TextView
         android:id="@+id/home_screen_title"
@@ -12,20 +14,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideline_h04"
-        android:text="Memory Matching"
+        android:text="@string/game_name"
         android:textSize="36sp"
         android:textColor="@color/black"
         android:gravity="center_horizontal"
         />
 
     <TextView
-        android:id="@+id/selection_prompt"
+        android:id="@+id/difficulty_selections_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideline_h24"
-        android:text="Select a difficulty"
+        android:text="@string/difficulty_selection_prompt_text"
         android:textSize="18sp"
         android:textColor="@color/black"
         />
@@ -38,7 +40,7 @@
         android:gravity="center_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selection_prompt"
+        app:layout_constraintTop_toBottomOf="@id/difficulty_selections_prompt"
         >
 
         <Button
@@ -47,8 +49,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/selection_prompt"
-            android:text="Easy (5x5)"
+            app:layout_constraintTop_toBottomOf="@id/difficulty_selections_prompt"
+            android:text="@string/easy_difficulty_text"
             />
 
         <Button
@@ -58,7 +60,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/easy_mode"
-            android:text="Medium (7x7)"
+            android:text="@string/medium_difficulty_text"
             />
 
         <Button
@@ -68,7 +70,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/medium_mode"
-            android:text="Hard (9x9)"
+            android:text="@string/hard_difficulty_text"
             />
 
     </LinearLayout>
@@ -81,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/difficulty_selections"
         android:layout_marginTop="18dp"
-        android:text="Additional"
+        android:text="@string/additional_selection_prompt_text"
         android:textSize="18sp"
         android:textColor="@color/black"
         />
@@ -98,12 +100,12 @@
         >
 
         <Button
-            android:id="@+id/highscores"
+            android:id="@+id/high_scores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="High Scores"
+            android:text="@string/high_scores_text"
             />
 
     </LinearLayout>

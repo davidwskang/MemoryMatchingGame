@@ -1,7 +1,17 @@
 <resources>
+
     <string name="app_name">MemoryMatchingGame</string>
+    <string name="game_name">Memory Matching</string>
 
     <!-- Splash Screen -->
     <string name="splash_screen_text">Memory\nMatching\nGame\n\nDavid Kang</string>
+
+    <!-- Home Screen -->
+    <string name="easy_difficulty_text">Easy (5x5)</string>
+    <string name="medium_difficulty_text">Medium (7x7)</string>
+    <string name="hard_difficulty_text">Hard (9x9)</string>
+    <string name="high_scores_text">High scores</string>
+    <string name="difficulty_selection_prompt_text">Select a difficulty</string>
+    <string name="additional_selection_prompt_text">Additional</string>
 
 </resources>
