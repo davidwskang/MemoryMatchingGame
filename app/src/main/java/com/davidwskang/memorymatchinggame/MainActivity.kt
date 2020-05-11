@@ -1,9 +1,8 @@
 package com.davidwskang.memorymatchinggame
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.davidwskang.memorymatchinggame.common.Game
-import com.davidwskang.memorymatchinggame.common.GameDifficulty
 import com.davidwskang.memorymatchinggame.game_screen.GameFragment
 import com.davidwskang.memorymatchinggame.highscores_screen.HighScoresFragment
 import com.davidwskang.memorymatchinggame.home_screen.HomeFragment

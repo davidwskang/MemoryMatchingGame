@@ -10,10 +10,11 @@ import com.davidwskang.memorymatchinggame.MainActivity
 import com.davidwskang.memorymatchinggame.R
 
 
-class SplashScreenFragment: Fragment() {
+class SplashScreenFragment : Fragment() {
 
     companion object {
         const val TAG = "splash"
+        const val DELAY_DUR = 2000L
     }
 
     override fun onCreateView(
@@ -32,6 +33,6 @@ class SplashScreenFragment: Fragment() {
         view.postDelayed({
             val ma = activity as MainActivity
             ma.onSplashScreenComplete()
-        }, 2000)
+        }, DELAY_DUR)
     }
 }
