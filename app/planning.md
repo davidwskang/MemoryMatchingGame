@@ -3,7 +3,7 @@
 ## Screens
 
 1. Splash Screen
-- A user should be able to open the app successfully
+- A user should be able to open the app successfully-
     - A user may not open the app if there is no internet connection
 
 2. Home Screen
