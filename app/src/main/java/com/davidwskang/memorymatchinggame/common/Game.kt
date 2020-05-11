@@ -8,6 +8,17 @@ enum class GameDifficulty {
 }
 
 @Parcelize
-data class Game(
-    val gameDifficulty: GameDifficulty
-): Parcelable
+class Game private constructor(
+    val rows: Int,
+    val cols: Int
+): Parcelable {
+    companion object {
+        fun make(gameDifficulty: GameDifficulty) : Game {
+            return when (gameDifficulty) {
+                GameDifficulty.EASY -> Game(4, 4)
+                GameDifficulty.MEDIUM -> Game(4, 5)
+                GameDifficulty.HARD -> Game(4, 6)
+            }
+        }
+    }
+}

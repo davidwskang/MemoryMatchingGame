@@ -10,6 +10,8 @@ import com.davidwskang.memorymatchinggame.common.Game
 
 class GameFragment : Fragment() {
 
+    lateinit var game: Game
+
     companion object {
         const val TAG = "game"
         private const val GAME_KEY = "game"
@@ -21,6 +23,11 @@ class GameFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        game = arguments?.getParcelable(GAME_KEY)!!
     }
 
     override fun onCreateView(
