@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MemoryMatchingGame</string>
+
+    <!-- Splash Screen -->
+    <string name="splash_screen_text">Memory\nMatching\nGame\n\nDavid Kang</string>
+
 </resources>
