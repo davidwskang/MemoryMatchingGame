@@ -6,13 +6,122 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
+        android:id="@+id/home_screen_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Hello World"
+        app:layout_constraintTop_toTopOf="@id/guideline_h04"
+        android:text="Memory Matching"
+        android:textSize="36sp"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal"
+        />
+
+    <TextView
+        android:id="@+id/selection_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_h24"
+        android:text="Select a difficulty"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        />
+
+    <LinearLayout
+        android:id="@+id/difficulty_selections"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selection_prompt"
+        >
+
+        <Button
+            android:id="@+id/easy_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/selection_prompt"
+            android:text="Easy (5x5)"
+            />
+
+        <Button
+            android:id="@+id/medium_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/easy_mode"
+            android:text="Medium (7x7)"
+            />
+
+        <Button
+            android:id="@+id/hard_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/medium_mode"
+            android:text="Hard (9x9)"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/additional_selections_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/difficulty_selections"
+        android:layout_marginTop="18dp"
+        android:text="Additional"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        />
+
+    <LinearLayout
+        android:id="@+id/additional_selections"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/additional_selections_prompt"
+        >
+
+        <Button
+            android:id="@+id/highscores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="High Scores"
+            />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_h04"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.04"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_h24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.30"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
