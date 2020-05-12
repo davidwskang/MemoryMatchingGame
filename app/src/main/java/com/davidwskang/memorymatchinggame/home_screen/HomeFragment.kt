@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
     )
 
     var originalArrowY = -1f
-    var arrowYArray = intArrayOf(0, 1, 2, 4) // easy, medium, hard, high scores
+    var arrowIndices = intArrayOf(0, 1, 2, 4) // easy, medium, hard, high scores
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
             }
             menuIndex++
             arrow.animate()
-                .y(originalArrowY + (arrow.height.toFloat() * arrowYArray[menuIndex % 4]))
+                .y(originalArrowY + (arrow.height.toFloat() * arrowIndices[menuIndex % 4]))
                 .setDuration(0)
                 .start()
         }
@@ -59,8 +59,11 @@ class HomeFragment : Fragment() {
                 originalArrowY = arrow.y
             }
             menuIndex--
+            if (menuIndex == -1) {
+                menuIndex = arrowIndices.size - 1
+            }
             arrow.animate()
-                .y(originalArrowY + (arrow.height.toFloat() * arrowYArray[menuIndex % 4]))
+                .y(originalArrowY + (arrow.height.toFloat() * arrowIndices[menuIndex % 4]))
                 .setDuration(0)
                 .start()
         }
