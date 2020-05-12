@@ -29,7 +29,6 @@ class GameBoard : GridView {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
     private val white by lazy { ContextCompat.getColor(context, R.color.white) }
-    private val black by lazy { ContextCompat.getColor(context, R.color.black) }
     private val green by lazy { ContextCompat.getColor(context, R.color.s_green) }
 
     var listener: GameBoardListener? = null
@@ -86,7 +85,7 @@ class GameBoard : GridView {
                 .load(card?.imgUrl)
                 .into(view.image)
 
-            view.card_background.setBackgroundColor(black)
+            view.card_background.setBackgroundColor(white)
         } else {
             view.image.visibility = View.INVISIBLE
             view.name.visibility = View.VISIBLE

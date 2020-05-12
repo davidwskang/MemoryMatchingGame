@@ -6,15 +6,15 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Products(
     val products: List<Product>
-): Parcelable
+) : Parcelable
 
 @Parcelize
 data class Product(
-    val title : String,
-    val image : ProductImage
+    val title: String,
+    val image: ProductImage
 ) : Parcelable
 
 @Parcelize
 data class ProductImage(
-    val src : String
+    val src: String
 ) : Parcelable

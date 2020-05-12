@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.davidwskang.memorymatchinggame.MainActivity
@@ -13,7 +14,6 @@ import com.davidwskang.memorymatchinggame.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-
 import kotlinx.android.synthetic.main.fragment_enter_high_score.*
 
 class EnterHighScoreFragment : Fragment() {
@@ -47,12 +47,17 @@ class EnterHighScoreFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_enter_high_score, container, false)
-    }
+    ): View? = inflater.inflate(
+        R.layout.fragment_enter_high_score,
+        container,
+        false
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.run { window.statusBarColor = ContextCompat.getColor(this, R.color.black) }
+        your_score_text.text = "Your score: $score"
+
         arrowAnim.duration = 1000
         arrowAnim.repeatCount = Animation.INFINITE
         name_label_container[currNameIndex].startAnimation(arrowAnim)
@@ -74,25 +79,41 @@ class EnterHighScoreFragment : Fragment() {
 
         enter_btn.setOnClickListener {
             name_label_container[currNameIndex].clearAnimation()
-            currNameIndex++
-            if (currNameIndex == 3) {
+            name_label_container[currNameIndex].visibility = View.INVISIBLE
 
+            currNameIndex++
+
+            if (currNameIndex < 3) {
+                name_label_container[currNameIndex].startAnimation(arrowAnim)
+                name_label_container[currNameIndex].visibility = View.VISIBLE
+
+            } else { // completed selecting initials
                 val highScore = HighScore(
                     initials = "${ALPHABET[nameArray[0]]}${ALPHABET[nameArray[1]]}${ALPHABET[nameArray[2]]}",
                     score = score
                 )
 
-                compositeDisposable.add(HighScoresDatabase.getInstance(context!!)
-                    .highScoresDao()
-                    .insert(highScore)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        (activity as MainActivity).onEnterHighScoreComplete()
-                    }, {}
-                    ))
-            } else {
+                compositeDisposable.add(
+                    HighScoresDatabase.getInstance(context!!)
+                        .highScoresDao()
+                        .insert(highScore)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            (activity as MainActivity).onEnterHighScoreComplete()
+                        }
+                )
+            }
+        }
+
+        back_btn.setOnClickListener {
+            if (currNameIndex > 0) {
+                name_label_container[currNameIndex].clearAnimation()
+                name_label_container[currNameIndex].visibility = View.INVISIBLE
+
+                currNameIndex--
                 name_label_container[currNameIndex].startAnimation(arrowAnim)
+                name_label_container[currNameIndex].visibility = View.VISIBLE
             }
         }
     }
