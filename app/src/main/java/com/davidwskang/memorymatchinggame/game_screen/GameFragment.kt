@@ -38,9 +38,12 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
         super.onCreate(savedInstanceState)
         game = arguments?.getParcelable(GAME_KEY)!!
 
-        for (i in 0 until (game.cols * game.rows) / 2) {
-            cards.add(GameCard(i.toString()))
-            cards.add(GameCard(i.toString()))
+        val numPairs = (game.cols * game.rows) / 2
+        if (game.cards.size <= numPairs) return
+
+        for (i in 0 until numPairs) {
+            cards.add(game.cards[i])
+            cards.add(game.cards[i])
         }
 //        cards.shuffle()
     }

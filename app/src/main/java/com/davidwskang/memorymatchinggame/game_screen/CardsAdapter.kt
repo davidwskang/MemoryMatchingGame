@@ -8,6 +8,10 @@ import android.widget.AbsListView
 import android.widget.BaseAdapter
 import com.davidwskang.memorymatchinggame.R
 import com.davidwskang.memorymatchinggame.common.GameCard
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.viewholder_card.view.*
+import java.lang.Exception
 
 class CardsAdapter(
     private val context: Context,
@@ -26,6 +30,7 @@ class CardsAdapter(
                     false
                 )
             card.layoutParams = AbsListView.LayoutParams(width, height)
+            card.image.visibility = View.INVISIBLE
             return card
         }
         return convertView

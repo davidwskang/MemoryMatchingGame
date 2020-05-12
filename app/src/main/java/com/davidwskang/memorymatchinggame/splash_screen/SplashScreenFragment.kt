@@ -102,7 +102,6 @@ class SplashScreenFragment : Fragment() {
                         )
                         cards.add(card)
                     }
-                    if (cards.size >= 25) break
                 }
                 if (cards.size < 25) {
                     it.onError(IOException("Not enough valid images at endpoint"))

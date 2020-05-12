@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.davidwskang.memorymatchinggame.common.Game
 import com.davidwskang.memorymatchinggame.common.GameCard
+import com.davidwskang.memorymatchinggame.common.GameDifficulty
 import com.davidwskang.memorymatchinggame.game_screen.GameFragment
 import com.davidwskang.memorymatchinggame.highscores_screen.EnterHighScoreFragment
 import com.davidwskang.memorymatchinggame.highscores_screen.HighScoresFragment
 import com.davidwskang.memorymatchinggame.home_screen.HomeFragment
 import com.davidwskang.memorymatchinggame.splash_screen.SplashScreenFragment
+import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +27,15 @@ class MainActivity : AppCompatActivity() {
             ).commit()
     }
 
+    val cards = ArrayList<GameCard>()
+
     fun onSplashScreenComplete(cards: List<GameCard>) {
+        this.cards.addAll(cards)
+        for (gameCard: GameCard in this.cards) {
+            Picasso.get()
+                .load(gameCard.imgUrl)
+                .fetch()
+        }
         val splashScreen = supportFragmentManager
             .findFragmentByTag(SplashScreenFragment.TAG)
         splashScreen?.run {
@@ -41,9 +51,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onGameSelected(game: Game) {
+    fun onGameSelected(gameDifficulty: GameDifficulty) {
         val homeScreen = supportFragmentManager
             .findFragmentByTag(HomeFragment.TAG)
+        val game = Game.make(gameDifficulty, cards)
+
         homeScreen?.run {
             supportFragmentManager
                 .beginTransaction()

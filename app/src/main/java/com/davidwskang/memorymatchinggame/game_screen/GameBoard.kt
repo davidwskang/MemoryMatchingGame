@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.util.AttributeSet
 import android.util.DisplayMetrics
+import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.GridView
 import androidx.core.content.ContextCompat
@@ -11,6 +12,7 @@ import androidx.core.view.get
 import com.davidwskang.memorymatchinggame.R
 import com.davidwskang.memorymatchinggame.common.Game
 import com.davidwskang.memorymatchinggame.common.GameCard
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.viewholder_card.view.*
 
 
@@ -41,12 +43,12 @@ class GameBoard : GridView {
                 dp.getCardHeight(this.listener!!.getCurrentGame().rows),
                 dp.getCardWidth(this.listener!!.getCurrentGame().cols)
             )
-
             setOnItemClickListener { _, _, position, _ ->
                 if (!flipping) {
                     listener?.onCardSelected(position)
                 }
             }
+
         }
 
     private var flipping = false
@@ -76,15 +78,19 @@ class GameBoard : GridView {
     private fun updateCardView(position: Int, faceUp: Boolean) {
         val view = get(position)
         if (faceUp) {
-            view.name.text = listener?.getCards()?.get(position)?.name
+            view.name.visibility = View.INVISIBLE
+            view.image.visibility = View.VISIBLE
+
+            val card = listener?.getCards()?.get(position)
+            Picasso.get()
+                .load(card?.imgUrl)
+                .into(view.image)
+
             view.card_background.setBackgroundColor(black)
-            view.name.setBackgroundColor(white)
-            view.name.setTextColor(black)
         } else {
-            view.name.text = "S"
+            view.image.visibility = View.INVISIBLE
+            view.name.visibility = View.VISIBLE
             view.card_background.setBackgroundColor(green)
-            view.name.setBackgroundColor(green)
-            view.name.setTextColor(white)
         }
     }
 

@@ -11,14 +11,14 @@ enum class GameDifficulty {
 class Game private constructor(
     val rows: Int,
     val cols: Int,
-    var cards: List<GameCard>? = null
+    var cards: List<GameCard>
 ) : Parcelable {
     companion object {
-        fun make(gameDifficulty: GameDifficulty): Game {
+        fun make(gameDifficulty: GameDifficulty, cards : List<GameCard>): Game {
             return when (gameDifficulty) {
-                GameDifficulty.EASY -> Game(4, 5) // 20
-                GameDifficulty.MEDIUM -> Game(4, 6) // 24
-                GameDifficulty.HARD -> Game(5, 6) // 30
+                GameDifficulty.EASY -> Game(4, 5, cards) // 20
+                GameDifficulty.MEDIUM -> Game(4, 6, cards) // 24
+                GameDifficulty.HARD -> Game(5, 6, cards) // 30
             }
         }
     }
