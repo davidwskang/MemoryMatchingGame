@@ -50,6 +50,9 @@ A user has the choice to skip the gameplay to view the rest of the app since thi
 
 To be consistent with the rest of the application, I could later implement this screen to use buttons to select cards when flipping them over. 
 
+If the user finishes the game, they are automatically sent to the Enter High Score Screen
+
+<img src="./readme_images/game_screen_no_matches.png" width="300">
 <img src="./readme_images/game_screen.png" width="300">
 
 ---
