@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.davidwskang.memorymatchinggame.MainActivity
 import com.davidwskang.memorymatchinggame.R
 import com.davidwskang.memorymatchinggame.common.Game
 import com.davidwskang.memorymatchinggame.common.GameCard
@@ -17,6 +18,7 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
     private val cards = ArrayList<GameCard>()
     private var flippedUpCards = ArrayList<Int>()
     private var matchedCardPositions = HashSet<Int>()
+    private var turns = 0
 
     companion object {
         const val TAG = "game"
@@ -56,6 +58,9 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         game_board.listener = this
+        game_auto_complete.setOnClickListener {
+            (activity as MainActivity).onGameComplete()
+        }
     }
 
     override fun getCurrentGame(): Game = game
@@ -91,6 +96,13 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
             game_board.flip(position, true)
             flippedUpCards.add(position)
         }
+
+        turns++
+        updateTurnsCount()
+
+        if (cards.size == matchedCardPositions.size) {
+            (activity as MainActivity).onGameComplete()
+        }
     }
 
     override fun onCardAnimationComplete() {
@@ -102,6 +114,10 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
                 flippedUpCards.clear()
             }, CARD_ANIM_DELAY_DUR)
         }
+    }
+
+    private fun updateTurnsCount() {
+        turns_text.text = "Turns: $turns"
     }
 }
 

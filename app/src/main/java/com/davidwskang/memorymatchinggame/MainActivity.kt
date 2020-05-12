@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         homeScreen?.run {
             supportFragmentManager
                 .beginTransaction()
-                .setCustomAnimations(0, R.anim.anim_slide_down)
+                .setCustomAnimations(0, 0)
                 .remove(this)
                 .add(
                     R.id.fragment_container,
@@ -68,6 +68,23 @@ class MainActivity : AppCompatActivity() {
                     HighScoresFragment(),
                     HighScoresFragment.TAG
                 ).commit()
+        }
+    }
+
+    fun onGameComplete() {
+        val gameScreen = supportFragmentManager
+            .findFragmentByTag(GameFragment.TAG)
+        gameScreen?.run {
+            supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.anim_slide_in_right_left, 0)
+                .remove(this)
+                .add(
+                    R.id.fragment_container,
+                    HighScoresFragment(),
+                    HighScoresFragment.TAG
+                )
+                .commit()
         }
     }
 }
