@@ -59,7 +59,7 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
         super.onViewCreated(view, savedInstanceState)
         game_board.listener = this
         game_auto_complete.setOnClickListener {
-            (activity as MainActivity).onGameComplete()
+            (activity as MainActivity).onGameComplete(turns)
         }
     }
 
@@ -101,7 +101,7 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
         updateTurnsCount()
 
         if (cards.size == matchedCardPositions.size) {
-            (activity as MainActivity).onGameComplete()
+            (activity as MainActivity).onGameComplete(turns)
         }
     }
 
