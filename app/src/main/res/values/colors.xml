@@ -6,6 +6,15 @@
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="s_green">#6EAd57</color>
+    <color name="s_green">#3BB749</color>
     <color name="s_beige">#FAF6EB</color>
+    <color name="grey">#D2D2D2</color>
+
+    <color name="score_red">#FA1D43</color>
+    <color name="score_orange">#FD7320</color>
+    <color name="score_yellow">#FDFF37</color>
+    <color name="score_green">#00FF32</color>
+    <color name="score_cyan">#1FDBFD</color>
+    <color name="score_purple">#E300F9</color>
+
 </resources>

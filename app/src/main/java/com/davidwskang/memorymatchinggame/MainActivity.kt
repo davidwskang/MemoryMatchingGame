@@ -41,7 +41,10 @@ class MainActivity : AppCompatActivity() {
         splashScreen?.run {
             supportFragmentManager
                 .beginTransaction()
-                .setCustomAnimations(0, R.anim.anim_slide_down)
+                .setCustomAnimations(
+                    R.anim.anim_slide_in_right_left,
+                    R.anim.anim_slide_out_right_left
+                )
                 .remove(this)
                 .add(
                     R.id.fragment_container,
@@ -72,17 +75,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onHighScoresSelected() {
+    fun onHighScoresSelectedFromMenu() {
         val homeScreen = supportFragmentManager
             .findFragmentByTag(HomeFragment.TAG)
         homeScreen?.run {
             supportFragmentManager
                 .beginTransaction()
-                .setCustomAnimations(0, R.anim.anim_slide_down)
+                .setCustomAnimations(
+                    R.anim.anim_slide_in_right_left,
+                    R.anim.anim_slide_out_right_left
+                )
                 .remove(this)
                 .add(
                     R.id.fragment_container,
-                    HighScoresFragment(),
+                    HighScoresFragment.newInstance(true),
                     HighScoresFragment.TAG
                 ).commit()
         }
@@ -107,6 +113,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun onGameExit() {
+        val gameScreen = supportFragmentManager
+            .findFragmentByTag(GameFragment.TAG)
+        gameScreen?.run {
+            supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(
+                    R.anim.anim_slide_in_left_right,
+                    R.anim.anim_slide_out_left_right
+                )
+                .remove(this)
+                .add(
+                    R.id.fragment_container,
+                    HomeFragment(),
+                    HomeFragment.TAG
+                ).commit()
+        }
+    }
+
     fun onEnterHighScoreComplete() {
         val enterScreen = supportFragmentManager
             .findFragmentByTag(EnterHighScoreFragment.TAG)
@@ -120,8 +145,31 @@ class MainActivity : AppCompatActivity() {
                 .remove(this)
                 .add(
                     R.id.fragment_container,
-                    HighScoresFragment(),
+                    HighScoresFragment.newInstance(false),
                     HighScoresFragment.TAG
+                ).commit()
+        }
+    }
+
+    fun onHighScoresScreenExit(backBtnLeft : Boolean) {
+        val highScoresScreen = supportFragmentManager
+            .findFragmentByTag(HighScoresFragment.TAG) as HighScoresFragment?
+
+        highScoresScreen.run {
+            val enterAnim =
+                if (backBtnLeft) R.anim.anim_slide_in_left_right
+                else R.anim.anim_slide_in_right_left
+            val exitAnim =
+                if (backBtnLeft) R.anim.anim_slide_out_left_right
+                else R.anim.anim_slide_out_right_left
+            supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(enterAnim, exitAnim)
+                .remove(this!!)
+                .add(
+                    R.id.fragment_container,
+                    HomeFragment(),
+                    HomeFragment.TAG
                 ).commit()
         }
     }

@@ -3,7 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#000000">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/your_score_text"
+        android:text="@string/congratulations_message"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        />
 
     <TextView
         android:id="@+id/your_score_text"
@@ -13,22 +29,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/name_label_container"
-        android:text="Your score:"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-
-        />
-
-    <TextView
-        android:id="@+id/score_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/your_score_text"
-        android:text="10"
-        android:textColor="@color/black"
-        android:textSize="36sp"
+        android:text="@string/high_score"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/score_green"
+        android:textSize="28sp"
+        android:fontFamily="monospace"
         />
 
     <LinearLayout
@@ -40,28 +46,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/name_container"
-        android:background="@color/white"
+        android:background="@color/black"
         >
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_keyboard_arrow_down_black"
+            android:src="@drawable/ic_keyboard_arrow_down_white"
             />
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_keyboard_arrow_down_black"
+            android:src="@drawable/ic_keyboard_arrow_down_white"
+            android:visibility="invisible"
             />
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_keyboard_arrow_down_black"
+            android:src="@drawable/ic_keyboard_arrow_down_white"
+            android:visibility="invisible"
             />
 
     </LinearLayout>
@@ -75,8 +83,7 @@
         app:layout_constraintDimensionRatio="3:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_h6"
         android:background="@color/black">
 
         <TextView
@@ -84,11 +91,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="A"
-            android:textColor="@color/black"
-            android:textSize="68sp"
+            android:text="@string/letter_default"
+            android:textColor="@color/score_red"
+            android:textSize="78sp"
             android:gravity="center_horizontal|top"
-            android:background="@color/white"
+            android:fontFamily="monospace"
             />
 
         <TextView
@@ -96,11 +103,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="A"
-            android:textColor="@color/black"
-            android:textSize="68sp"
+            android:text="@string/letter_default"
+            android:textColor="@color/score_orange"
+            android:textSize="78sp"
             android:gravity="center_horizontal|top"
-            android:background="@color/white"
+            android:fontFamily="monospace"
+
             />
 
         <TextView
@@ -108,14 +116,29 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="A"
-            android:textColor="@color/black"
-            android:textSize="68sp"
+            android:text="@string/letter_default"
+            android:textColor="@color/score_yellow"
+            android:textSize="78sp"
             android:gravity="center_horizontal|top"
-            android:background="@color/white"
+            android:fontFamily="monospace"
             />
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_container"
+        android:gravity="center"
+        android:text="Use the buttons to enter your initials"
+        android:textAllCaps="true"
+        android:textColor="@color/score_cyan"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        />
 
     <ImageButton
         android:id="@+id/up_btn"
@@ -123,7 +146,8 @@
         android:layout_height="45dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline_v5"
-        app:layout_constraintBottom_toTopOf="@id/down_btn"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_h85"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/ic_arrow_upward_black"
         android:background="@drawable/round_button"
         android:scaleType="fitCenter"
@@ -135,7 +159,8 @@
         android:layout_height="45dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline_v5"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_h85"
+        android:layout_marginTop="10dp"
         android:src="@drawable/ic_arrow_downward_black"
         android:background="@drawable/round_button"
         android:scaleType="fitCenter"
@@ -145,10 +170,22 @@
         android:id="@+id/enter_btn"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        app:layout_constraintStart_toStartOf="@id/guideline_v5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_v75"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_h85"
+        android:layout_marginStart="6dp"
         android:src="@drawable/ic_check_black"
+        android:background="@drawable/round_button"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageButton
+        android:id="@+id/back_btn"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline_v75"
+        app:layout_constraintTop_toTopOf="@id/guideline_h85"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/ic_back_black"
         android:background="@drawable/round_button"
         android:scaleType="fitCenter"
         />
@@ -159,6 +196,30 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_v75"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_h6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_h85"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

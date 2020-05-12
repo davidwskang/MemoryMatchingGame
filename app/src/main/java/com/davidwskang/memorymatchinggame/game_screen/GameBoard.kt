@@ -86,7 +86,7 @@ class GameBoard : GridView {
                 .load(card?.imgUrl)
                 .into(view.image)
 
-            view.card_background.setBackgroundColor(black)
+            view.card_background.setBackgroundColor(white)
         } else {
             view.image.visibility = View.INVISIBLE
             view.name.visibility = View.VISIBLE

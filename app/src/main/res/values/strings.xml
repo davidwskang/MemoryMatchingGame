@@ -1,17 +1,35 @@
 <resources>
 
     <string name="app_name">MemoryMatchingGame</string>
-    <string name="game_name">Memory Matching</string>
+    <string name="game_name">Memory\nMatching</string>
 
     <!-- Splash Screen -->
-    <string name="splash_screen_text">Memory\nMatching\nGame\n\nDavid Kang</string>
+    <string name="by_david_kang">by David Kang</string>
 
     <!-- Home Screen -->
-    <string name="easy_difficulty_text">Easy (5x5)</string>
-    <string name="medium_difficulty_text">Medium (7x7)</string>
-    <string name="hard_difficulty_text">Hard (9x9)</string>
-    <string name="high_scores_text">High scores</string>
+    <string name="easy_difficulty_text">Easy (4x5)</string>
+    <string name="medium_difficulty_text">Medium (4x6)</string>
+    <string name="hard_difficulty_text">Hard (5x6)</string>
+    <string name="high_scores_text">High Scores</string>
     <string name="difficulty_selection_prompt_text">Select a difficulty</string>
     <string name="additional_selection_prompt_text">Additional</string>
+    <string name="menu_instructions">Use the buttons to select a game mode or to view high scores</string>
+
+    <!-- Game Screen -->
+    <string name="number_turns">Turns: 0</string>
+    <string name="game_instructions">Flip two cards at a time\nto find matching pairs</string>
+
+    <!-- Enter High Scores Screen -->
+    <string name="congratulations_message">Congratulations!</string>
+    <string name="high_score">Score: 0</string>
+    <string name="letter_default">A</string>
+    <string name="your_score">Your score:</string>
+
+    <!-- High Scores Screen -->
+    <string name="high_scores_rank_header_text">RANK</string>
+    <string name="high_scores_name_header_text">NAME</string>
+    <string name="high_scores_score_header_text">SCORE</string>
+
+
 
 </resources>

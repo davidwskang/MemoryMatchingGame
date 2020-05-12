@@ -48,7 +48,7 @@ class SplashScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.run { window.statusBarColor = ContextCompat.getColor(this, R.color.s_green) }
+        activity?.run { window.statusBarColor = ContextCompat.getColor(this, R.color.black) }
 
         compositeDisposable.addAll(
             Observable.interval(0L, 1L, TimeUnit.SECONDS)

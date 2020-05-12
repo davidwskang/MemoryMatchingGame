@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.davidwskang.memorymatchinggame.MainActivity
 import com.davidwskang.memorymatchinggame.R
@@ -45,7 +46,7 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
             cards.add(game.cards[i])
             cards.add(game.cards[i])
         }
-//        cards.shuffle()
+        cards.shuffle()
     }
 
     override fun onCreateView(
@@ -60,6 +61,10 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.run { window.statusBarColor = ContextCompat.getColor(this, R.color.black) }
+        back_btn.setOnClickListener {
+            (activity as MainActivity).onGameExit()
+        }
         game_board.listener = this
         game_auto_complete.setOnClickListener {
             (activity as MainActivity).onGameComplete(turns)
@@ -102,13 +107,16 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
 
         turns++
         updateTurnsCount()
-
-        if (cards.size == matchedCardPositions.size) {
-            (activity as MainActivity).onGameComplete(turns)
-        }
     }
 
     override fun onCardAnimationComplete() {
+
+        if (cards.size == matchedCardPositions.size) {
+            game_board.postDelayed({
+                (activity as MainActivity).onGameComplete(turns)
+            }, CARD_ANIM_DELAY_DUR)
+        }
+
         if (flippedUpCards.size == 2) {
             game_board.postDelayed({
                 for (pos: Int in flippedUpCards) {
