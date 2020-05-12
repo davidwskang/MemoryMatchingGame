@@ -3,6 +3,7 @@ package com.davidwskang.memorymatchinggame
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.davidwskang.memorymatchinggame.common.Game
+import com.davidwskang.memorymatchinggame.common.GameCard
 import com.davidwskang.memorymatchinggame.game_screen.GameFragment
 import com.davidwskang.memorymatchinggame.highscores_screen.EnterHighScoreFragment
 import com.davidwskang.memorymatchinggame.highscores_screen.HighScoresFragment
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             ).commit()
     }
 
-    fun onSplashScreenComplete() {
+    fun onSplashScreenComplete(cards: List<GameCard>) {
         val splashScreen = supportFragmentManager
             .findFragmentByTag(SplashScreenFragment.TAG)
         splashScreen?.run {
