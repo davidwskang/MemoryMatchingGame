@@ -10,6 +10,10 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.davidwskang.memorymatchinggame.MainActivity
 import com.davidwskang.memorymatchinggame.R
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+
 import kotlinx.android.synthetic.main.fragment_enter_high_score.*
 
 class EnterHighScoreFragment : Fragment() {
@@ -32,6 +36,7 @@ class EnterHighScoreFragment : Fragment() {
     private var currNameIndex = 0
     private var arrowAnim = AlphaAnimation(0.0f, 1.0f)
     private var score: Int = 0
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,17 +71,35 @@ class EnterHighScoreFragment : Fragment() {
             }
             updateLetter()
         }
+
         enter_btn.setOnClickListener {
             name_label_container[currNameIndex].clearAnimation()
             currNameIndex++
             if (currNameIndex == 3) {
-                val initials =
-                    "${ALPHABET[nameArray[0]]}${ALPHABET[nameArray[1]]}${ALPHABET[nameArray[2]]}"
-                (activity as MainActivity).onEnterHighScoreComplete()
+
+                val highScore = HighScore(
+                    initials = "${ALPHABET[nameArray[0]]}${ALPHABET[nameArray[1]]}${ALPHABET[nameArray[2]]}",
+                    score = score
+                )
+
+                compositeDisposable.add(HighScoresDatabase.getInstance(context!!)
+                    .highScoresDao()
+                    .insert(highScore)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        (activity as MainActivity).onEnterHighScoreComplete()
+                    }, {}
+                    ))
             } else {
                 name_label_container[currNameIndex].startAnimation(arrowAnim)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.clear()
     }
 
     private fun updateLetter() {

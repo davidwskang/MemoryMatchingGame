@@ -5,7 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.davidwskang.memorymatchinggame.R
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_highscores_screen.*
 
 class HighScoresFragment : Fragment() {
 
@@ -13,6 +18,8 @@ class HighScoresFragment : Fragment() {
         const val TAG = "high_scores"
     }
 
+    private var compositeDisposable = CompositeDisposable()
+    private lateinit var adapter: HighScoresAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -20,5 +27,29 @@ class HighScoresFragment : Fragment() {
     ): View? = inflater.inflate(
         R.layout.fragment_highscores_screen,
         container,
-        false)
+        false
+    )
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        high_scores_list.layoutManager = LinearLayoutManager(context)
+        adapter = HighScoresAdapter(context)
+        high_scores_list.adapter = adapter
+
+        compositeDisposable.add(
+            HighScoresDatabase
+                .getInstance(context!!)
+                .highScoresDao()
+                .getAll()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    adapter.highScores.addAll(it)
+                    adapter.notifyDataSetChanged()
+                }, {
+                })
+        )
+
+    }
+
 }
