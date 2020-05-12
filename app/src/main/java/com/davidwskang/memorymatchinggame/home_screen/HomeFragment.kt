@@ -13,7 +13,7 @@ import com.davidwskang.memorymatchinggame.R
 import com.davidwskang.memorymatchinggame.common.GameDifficulty
 import kotlinx.android.synthetic.main.fragment_home_screen.*
 
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment() {
 
     companion object {
         const val TAG = "home"
@@ -29,7 +29,8 @@ class HomeFragment: Fragment() {
     ): View? = inflater.inflate(
         R.layout.fragment_home_screen,
         container,
-        false)
+        false
+    )
 
     var originalArrowY = -1f
     var arrowYArray = intArrayOf(0, 1, 2, 4) // easy, medium, hard, high scores
@@ -82,7 +83,6 @@ class HomeFragment: Fragment() {
     private fun onGameDifficultySelected(difficulty: GameDifficulty) {
         (activity as MainActivity).onGameSelected(difficulty)
     }
-
 
 
     private fun onHighScoresSelected() = (activity as MainActivity).onHighScoresSelectedFromMenu()

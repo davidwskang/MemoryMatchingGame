@@ -52,7 +52,7 @@ interface HighScoresDao {
     @Insert
     fun insert(highScore: HighScore): Completable
 
-    @Query("SELECT * FROM highscore ORDER BY score DESC")
+    @Query("SELECT * FROM highscore ORDER BY score ASC")
     fun getAll(): Single<List<HighScore>>
 
 }

@@ -24,6 +24,7 @@
     <string name="high_score">Score: 0</string>
     <string name="letter_default">A</string>
     <string name="your_score">Your score:</string>
+    <string name="score_explanation">(Lower is better)</string>
 
     <!-- High Scores Screen -->
     <string name="high_scores_rank_header_text">RANK</string>

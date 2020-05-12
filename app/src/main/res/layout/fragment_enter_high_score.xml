@@ -37,6 +37,20 @@
         android:fontFamily="monospace"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/your_score_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/score_explanation"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAllCaps="true"
+        android:fontFamily="monospace"
+        />
+
     <LinearLayout
         android:id="@+id/name_label_container"
         android:layout_width="0dp"

@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onHighScoresScreenExit(backBtnLeft : Boolean) {
+    fun onHighScoresScreenExit(backBtnLeft: Boolean) {
         val highScoresScreen = supportFragmentManager
             .findFragmentByTag(HighScoresFragment.TAG) as HighScoresFragment?
 

@@ -14,7 +14,7 @@ class Game private constructor(
     var cards: List<GameCard>
 ) : Parcelable {
     companion object {
-        fun make(gameDifficulty: GameDifficulty, cards : List<GameCard>): Game {
+        fun make(gameDifficulty: GameDifficulty, cards: List<GameCard>): Game {
             return when (gameDifficulty) {
                 GameDifficulty.EASY -> Game(4, 5, cards) // 20
                 GameDifficulty.MEDIUM -> Game(4, 6, cards) // 24

@@ -20,7 +20,7 @@ class HighScoresFragment : Fragment() {
         const val TAG = "high_scores"
         private const val BACK_BTN_PLACEMENT_KEY = "back_button_placement"
 
-        fun newInstance(backButtonLeft : Boolean) : HighScoresFragment {
+        fun newInstance(backButtonLeft: Boolean): HighScoresFragment {
             val args = Bundle()
             args.putBoolean(BACK_BTN_PLACEMENT_KEY, backButtonLeft)
             val fragment = HighScoresFragment()
@@ -55,11 +55,19 @@ class HighScoresFragment : Fragment() {
         if (backBtnPlacementLeft) {
             left_back_btn.visibility = View.VISIBLE
             right_back_btn.visibility = View.INVISIBLE
-            left_back_btn.setOnClickListener { (activity as MainActivity).onHighScoresScreenExit(backBtnPlacementLeft) }
+            left_back_btn.setOnClickListener {
+                (activity as MainActivity).onHighScoresScreenExit(
+                    backBtnPlacementLeft
+                )
+            }
         } else {
             left_back_btn.visibility = View.INVISIBLE
             right_back_btn.visibility = View.VISIBLE
-            right_back_btn.setOnClickListener { (activity as MainActivity).onHighScoresScreenExit(backBtnPlacementLeft) }
+            right_back_btn.setOnClickListener {
+                (activity as MainActivity).onHighScoresScreenExit(
+                    backBtnPlacementLeft
+                )
+            }
         }
 
         high_scores_list.layoutManager = LinearLayoutManager(context)

@@ -1,6 +1,5 @@
 package com.davidwskang.memorymatchinggame.highscores_screen
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import com.davidwskang.memorymatchinggame.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-
 import kotlinx.android.synthetic.main.fragment_enter_high_score.*
 
 class EnterHighScoreFragment : Fragment() {

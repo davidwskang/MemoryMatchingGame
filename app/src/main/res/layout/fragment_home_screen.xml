@@ -22,6 +22,19 @@
         android:textAllCaps="true"
         />
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        app:layout_constraintStart_toStartOf="@id/home_screen_title"
+        app:layout_constraintTop_toBottomOf="@id/home_screen_title"
+        android:text="@string/by_david_kang"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAllCaps="true"
+        android:fontFamily="monospace"
+        />
+
     <LinearLayout
         android:id="@+id/menu_options"
         android:layout_width="0dp"
