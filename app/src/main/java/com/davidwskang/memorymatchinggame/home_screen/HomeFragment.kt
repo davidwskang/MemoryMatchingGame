@@ -38,8 +38,10 @@ class HomeFragment: Fragment() {
         high_scores_btn.setOnClickListener { onHighScoresSelected() }
     }
 
-    private fun onGameDifficultySelected(difficulty: GameDifficulty) =
-        (activity as MainActivity).onGameSelected(Game.make(difficulty))
+    private fun onGameDifficultySelected(difficulty: GameDifficulty) {
+        (activity as MainActivity).onGameSelected(difficulty)
+    }
+
 
 
     private fun onHighScoresSelected() = (activity as MainActivity).onHighScoresSelected()
