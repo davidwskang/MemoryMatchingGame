@@ -1,9 +1,8 @@
 package com.davidwskang.memorymatchinggame
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.davidwskang.memorymatchinggame.common.Game
-import com.davidwskang.memorymatchinggame.common.GameDifficulty
 import com.davidwskang.memorymatchinggame.game_screen.GameFragment
 import com.davidwskang.memorymatchinggame.highscores_screen.HighScoresFragment
 import com.davidwskang.memorymatchinggame.home_screen.HomeFragment
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         homeScreen?.run {
             supportFragmentManager
                 .beginTransaction()
-                .setCustomAnimations(0, R.anim.anim_slide_down)
+                .setCustomAnimations(0, 0)
                 .remove(this)
                 .add(
                     R.id.fragment_container,
@@ -69,6 +68,23 @@ class MainActivity : AppCompatActivity() {
                     HighScoresFragment(),
                     HighScoresFragment.TAG
                 ).commit()
+        }
+    }
+
+    fun onGameComplete() {
+        val gameScreen = supportFragmentManager
+            .findFragmentByTag(GameFragment.TAG)
+        gameScreen?.run {
+            supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.anim_slide_in_right_left, 0)
+                .remove(this)
+                .add(
+                    R.id.fragment_container,
+                    HighScoresFragment(),
+                    HighScoresFragment.TAG
+                )
+                .commit()
         }
     }
 }
