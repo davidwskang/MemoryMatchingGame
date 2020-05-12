@@ -43,11 +43,6 @@ class HomeFragment : Fragment() {
         arrowAnim.repeatCount = Animation.INFINITE
         arrow.startAnimation(arrowAnim)
 
-//        easy_mode_text.setOnClickListener { onGameDifficultySelected(GameDifficulty.EASY) }
-//        medium_mode_text.setOnClickListener { onGameDifficultySelected(GameDifficulty.MEDIUM) }
-//        hard_mode_text.setOnClickListener { onGameDifficultySelected(GameDifficulty.HARD) }
-//        high_scores_text.setOnClickListener { onHighScoresSelected() }
-
         down_btn.setOnClickListener {
             if (originalArrowY == -1f) {
                 originalArrowY = arrow.y
@@ -71,7 +66,7 @@ class HomeFragment : Fragment() {
         }
 
         enter_btn.setOnClickListener {
-            when (menuIndex) {
+            when (menuIndex % 4) {
                 0 -> onGameDifficultySelected(GameDifficulty.EASY)
                 1 -> onGameDifficultySelected(GameDifficulty.MEDIUM)
                 2 -> onGameDifficultySelected(GameDifficulty.HARD)
@@ -83,7 +78,6 @@ class HomeFragment : Fragment() {
     private fun onGameDifficultySelected(difficulty: GameDifficulty) {
         (activity as MainActivity).onGameSelected(difficulty)
     }
-
 
     private fun onHighScoresSelected() = (activity as MainActivity).onHighScoresSelectedFromMenu()
 
