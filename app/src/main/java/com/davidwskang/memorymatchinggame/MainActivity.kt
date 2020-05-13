@@ -2,6 +2,7 @@ package com.davidwskang.memorymatchinggame
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.davidwskang.memorymatchinggame.common.Game
 import com.davidwskang.memorymatchinggame.common.GameCard
 import com.davidwskang.memorymatchinggame.common.GameDifficulty
@@ -13,159 +14,72 @@ import com.davidwskang.memorymatchinggame.splash_screen.SplashScreenFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private val cards = ArrayList<GameCard>()
+    lateinit var currFrag : Fragment
+    val cards = ArrayList<GameCard>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val splash = SplashScreenFragment()
         supportFragmentManager
             .beginTransaction()
-            .add(
-                R.id.fragment_container,
-                SplashScreenFragment(),
-                SplashScreenFragment.TAG
-            ).commit()
+            .add(R.id.fragment_container, splash)
+            .commit()
+        currFrag = splash
     }
 
-    fun onSplashScreenComplete(cards: List<GameCard>) {
-        this.cards.addAll(cards)
-        val splashScreen = supportFragmentManager
-            .findFragmentByTag(SplashScreenFragment.TAG)
-        splashScreen?.run {
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(
-                    R.anim.anim_slide_in_right_left,
-                    R.anim.anim_slide_out_right_left
-                )
-                .remove(this)
-                .add(
-                    R.id.fragment_container,
-                    HomeFragment(),
-                    HomeFragment.TAG
-                ).commit()
-        }
+    fun onSplashScreenComplete() {
+        removeThenAddFrag(HomeFragment(), true)
     }
 
     fun onGameModeSelected(gameDifficulty: GameDifficulty) {
-        val homeScreen = supportFragmentManager
-            .findFragmentByTag(HomeFragment.TAG)
         val game = Game.make(gameDifficulty, cards)
-
-        homeScreen?.run {
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(
-                    R.anim.anim_slide_in_right_left,
-                    R.anim.anim_slide_out_right_left
-                )
-                .remove(this)
-                .add(
-                    R.id.fragment_container,
-                    GameFragment.newInstance(game),
-                    GameFragment.TAG
-                ).commit()
-        }
+        removeThenAddFrag(GameFragment.newInstance(game), true)
     }
 
     fun onHighScoresSelectedFromMenu() {
-        val homeScreen = supportFragmentManager
-            .findFragmentByTag(HomeFragment.TAG)
-        homeScreen?.run {
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(
-                    R.anim.anim_slide_in_right_left,
-                    R.anim.anim_slide_out_right_left
-                )
-                .remove(this)
-                .add(
-                    R.id.fragment_container,
-                    HighScoresFragment.newInstance(true),
-                    HighScoresFragment.TAG
-                ).commit()
-        }
+        removeThenAddFrag(HighScoresFragment.newInstance(true), true)
     }
 
     fun onGameComplete(score: Int) {
-        val gameScreen = supportFragmentManager
-            .findFragmentByTag(GameFragment.TAG)
-        gameScreen?.run {
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(
-                    R.anim.anim_slide_in_right_left,
-                    R.anim.anim_slide_out_right_left
-                )
-                .remove(this)
-                .add(
-                    R.id.fragment_container,
-                    EnterHighScoreFragment.newInstance(score),
-                    EnterHighScoreFragment.TAG
-                ).commit()
-        }
+        removeThenAddFrag(EnterHighScoreFragment.newInstance(score), true)
     }
 
     fun onGameExit() {
-        val gameScreen = supportFragmentManager
-            .findFragmentByTag(GameFragment.TAG)
-        gameScreen?.run {
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(
-                    R.anim.anim_slide_in_left_right,
-                    R.anim.anim_slide_out_left_right
-                )
-                .remove(this)
-                .add(
-                    R.id.fragment_container,
-                    HomeFragment(),
-                    HomeFragment.TAG
-                ).commit()
-        }
+        removeThenAddFrag(HomeFragment(), false)
     }
 
     fun onEnterHighScoreComplete() {
-        val enterScreen = supportFragmentManager
-            .findFragmentByTag(EnterHighScoreFragment.TAG)
-        enterScreen?.run {
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(
-                    R.anim.anim_slide_in_right_left,
-                    R.anim.anim_slide_out_right_left
-                )
-                .remove(this)
-                .add(
-                    R.id.fragment_container,
-                    HighScoresFragment.newInstance(false),
-                    HighScoresFragment.TAG
-                ).commit()
-        }
+        removeThenAddFrag(HighScoresFragment.newInstance(false), true)
     }
 
     fun onHighScoresScreenExit(backBtnLeft: Boolean) {
-        val highScoresScreen = supportFragmentManager
-            .findFragmentByTag(HighScoresFragment.TAG) as HighScoresFragment?
-
-        highScoresScreen.run {
-            val enterAnim =
-                if (backBtnLeft) R.anim.anim_slide_in_left_right
-                else R.anim.anim_slide_in_right_left
-            val exitAnim =
-                if (backBtnLeft) R.anim.anim_slide_out_left_right
-                else R.anim.anim_slide_out_right_left
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(enterAnim, exitAnim)
-                .remove(this!!)
-                .add(
-                    R.id.fragment_container,
-                    HomeFragment(),
-                    HomeFragment.TAG
-                ).commit()
-        }
+        removeThenAddFrag(HomeFragment(), !backBtnLeft)
     }
 
+    private fun removeThenAddFrag(toFrag : Fragment, transitionRight : Boolean) {
+        val transAnim = when (transitionRight) {
+            true -> FragTransitionAnim(
+                R.anim.anim_slide_in_right_left,
+                R.anim.anim_slide_out_right_left
+            )
+            false -> FragTransitionAnim(
+                R.anim.anim_slide_in_left_right,
+                R.anim.anim_slide_out_left_right
+            )
+        }
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(transAnim.enterAnim, transAnim.exitAnim)
+            .remove(currFrag)
+            .add(R.id.fragment_container, toFrag)
+            .commit()
+        currFrag = toFrag
+    }
+
+    data class FragTransitionAnim(
+        val enterAnim : Int,
+        val exitAnim : Int
+    )
 }

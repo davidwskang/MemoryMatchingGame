@@ -57,7 +57,8 @@ class SplashScreenFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it > 2L && cards.isNotEmpty()) {
-                        (activity as MainActivity).onSplashScreenComplete(cards)
+                        (activity as MainActivity).cards.addAll(cards)
+                        (activity as MainActivity).onSplashScreenComplete()
                     } else if (it > 10L) {
                         throw Exception("Timeout error on requesting products at endpoint")
                     }

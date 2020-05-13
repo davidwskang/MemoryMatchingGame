@@ -112,15 +112,15 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
     override fun onCardAnimationComplete() {
 
         if (cards.size == matchedCardPositions.size) {
-            game_board.postDelayed({
+            game_board?.postDelayed({
                 (activity as MainActivity).onGameComplete(turns)
             }, CARD_ANIM_DELAY_DUR)
         }
 
         if (flippedUpCards.size == 2) {
-            game_board.postDelayed({
+            game_board?.postDelayed({
                 for (pos: Int in flippedUpCards) {
-                    game_board.flip(pos, false)
+                    game_board?.flip(pos, false)
                 }
                 flippedUpCards.clear()
             }, CARD_ANIM_DELAY_DUR)
