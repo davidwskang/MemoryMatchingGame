@@ -10,9 +10,10 @@ import com.davidwskang.memorymatchinggame.highscores_screen.EnterHighScoreFragme
 import com.davidwskang.memorymatchinggame.highscores_screen.HighScoresFragment
 import com.davidwskang.memorymatchinggame.home_screen.HomeFragment
 import com.davidwskang.memorymatchinggame.splash_screen.SplashScreenFragment
-import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity() {
+
+    private val cards = ArrayList<GameCard>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +28,8 @@ class MainActivity : AppCompatActivity() {
             ).commit()
     }
 
-    val cards = ArrayList<GameCard>()
-
     fun onSplashScreenComplete(cards: List<GameCard>) {
         this.cards.addAll(cards)
-        for (gameCard: GameCard in this.cards) {
-            Picasso.get()
-                .load(gameCard.imgUrl)
-                .fetch()
-        }
         val splashScreen = supportFragmentManager
             .findFragmentByTag(SplashScreenFragment.TAG)
         splashScreen?.run {
@@ -54,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onGameSelected(gameDifficulty: GameDifficulty) {
+    fun onGameModeSelected(gameDifficulty: GameDifficulty) {
         val homeScreen = supportFragmentManager
             .findFragmentByTag(HomeFragment.TAG)
         val game = Game.make(gameDifficulty, cards)
@@ -173,4 +167,5 @@ class MainActivity : AppCompatActivity() {
                 ).commit()
         }
     }
+
 }

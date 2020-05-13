@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun onGameDifficultySelected(difficulty: GameDifficulty) {
-        (activity as MainActivity).onGameSelected(difficulty)
+        (activity as MainActivity).onGameModeSelected(difficulty)
     }
 
     private fun onHighScoresSelected() = (activity as MainActivity).onHighScoresSelectedFromMenu()

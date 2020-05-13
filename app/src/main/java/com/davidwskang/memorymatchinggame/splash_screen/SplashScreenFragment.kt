@@ -13,6 +13,7 @@ import com.davidwskang.memorymatchinggame.common.GameCard
 import com.davidwskang.memorymatchinggame.common.Product
 import com.davidwskang.memorymatchinggame.common.Products
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,8 +33,8 @@ class SplashScreenFragment : Fragment() {
             "https://shopicruit.myshopify.com/admin/products.json?page=1&access_token=c32313df0d0ef512ca64d5b336a0d7c6"
     }
 
-    var cards = ArrayList<GameCard>()
-    var compositeDisposable = CompositeDisposable()
+    private var cards = ArrayList<GameCard>()
+    private var compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,11 +97,12 @@ class SplashScreenFragment : Fragment() {
                 val cards = ArrayList<GameCard>()
                 for (product: Product in products.products) {
                     if (!product.title.isBlank() && !product.image.src.isBlank()) {
-                        val card = GameCard(
-                            product.title,
-                            product.image.src
+                        cards.add(
+                            GameCard(product.title, product.image.src)
                         )
-                        cards.add(card)
+                        Picasso.get()
+                            .load(product.image.src)
+                            .fetch()
                     }
                 }
                 if (cards.size < 25) {
