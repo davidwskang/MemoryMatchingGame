@@ -17,9 +17,7 @@ import kotlinx.android.synthetic.main.fragment_highscores_screen.*
 class HighScoresFragment : Fragment() {
 
     companion object {
-        const val TAG = "high_scores"
         private const val BACK_BTN_PLACEMENT_KEY = "back_button_placement"
-
         fun newInstance(backButtonLeft: Boolean): HighScoresFragment {
             val args = Bundle()
             args.putBoolean(BACK_BTN_PLACEMENT_KEY, backButtonLeft)
@@ -31,7 +29,7 @@ class HighScoresFragment : Fragment() {
 
     private var compositeDisposable = CompositeDisposable()
     private lateinit var adapter: HighScoresAdapter
-    var backBtnPlacementLeft = true
+    private var backBtnPlacementLeft = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,30 +48,32 @@ class HighScoresFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.run { window.statusBarColor = ContextCompat.getColor(this, R.color.black) }
+        setupBackBtn()
+        initHighScoresList()
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.clear()
+    }
+
+    private fun setupBackBtn() {
+        val ma = activity as MainActivity
         if (backBtnPlacementLeft) {
             left_back_btn.visibility = View.VISIBLE
             right_back_btn.visibility = View.INVISIBLE
-            left_back_btn.setOnClickListener {
-                (activity as MainActivity).onHighScoresScreenExit(
-                    backBtnPlacementLeft
-                )
-            }
+            left_back_btn.setOnClickListener { ma.onHighScoresScreenExit(backBtnPlacementLeft) }
         } else {
             left_back_btn.visibility = View.INVISIBLE
             right_back_btn.visibility = View.VISIBLE
-            right_back_btn.setOnClickListener {
-                (activity as MainActivity).onHighScoresScreenExit(
-                    backBtnPlacementLeft
-                )
-            }
+            right_back_btn.setOnClickListener { ma.onHighScoresScreenExit(backBtnPlacementLeft) }
         }
+    }
 
+    private fun initHighScoresList() {
         high_scores_list.layoutManager = LinearLayoutManager(context)
         adapter = HighScoresAdapter(context)
         high_scores_list.adapter = adapter
-
         compositeDisposable.add(
             HighScoresDatabase
                 .getInstance(context!!)
@@ -87,7 +87,7 @@ class HighScoresFragment : Fragment() {
                 }, {
                 })
         )
-
     }
+
 
 }

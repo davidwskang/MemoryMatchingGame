@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.davidwskang.memorymatchinggame.MainActivity
 import com.davidwskang.memorymatchinggame.R
@@ -22,7 +21,6 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
     private var turns = 0
 
     companion object {
-        const val TAG = "game"
         private const val GAME_KEY = "game"
         private const val CARD_ANIM_DELAY_DUR = 300L
 
@@ -37,16 +35,7 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        game = arguments?.getParcelable(GAME_KEY)!!
-
-        val numPairs = (game.cols * game.rows) / 2
-        if (game.cards.size <= numPairs) return
-
-        for (i in 0 until numPairs) {
-            cards.add(game.cards[i])
-            cards.add(game.cards[i])
-        }
-        cards.shuffle()
+        initGameModels()
     }
 
     override fun onCreateView(
@@ -61,20 +50,19 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.run { window.statusBarColor = ContextCompat.getColor(this, R.color.black) }
-        back_btn.setOnClickListener {
-            (activity as MainActivity).onGameExit()
-        }
+        val ma = activity as MainActivity
+        back_btn.setOnClickListener { ma.onGameExit() }
         game_board.listener = this
-        game_auto_complete.setOnClickListener {
-            (activity as MainActivity).onGameComplete(turns)
-        }
+        game_auto_complete.setOnClickListener { ma.onGameComplete(turns) }
     }
 
-    override fun getCurrentGame(): Game = game
+    // GameBoardListener.getGameModel()
+    override fun getGameModel(): Game = game
 
+    // GameBoardListener.getCards()
     override fun getCards(): List<GameCard> = cards
 
+    // GameBoardListener.onCardSelected(position:)
     override fun onCardSelected(position: Int) {
         // card already matched
         if (matchedCardPositions.contains(position)) return
@@ -109,22 +97,35 @@ class GameFragment : Fragment(), GameBoard.GameBoardListener {
         updateTurnsCount()
     }
 
+    // GameBoardListener.onCardAnimationComplete()
     override fun onCardAnimationComplete() {
 
         if (cards.size == matchedCardPositions.size) {
-            game_board.postDelayed({
+            game_board?.postDelayed({
                 (activity as MainActivity).onGameComplete(turns)
             }, CARD_ANIM_DELAY_DUR)
         }
 
         if (flippedUpCards.size == 2) {
-            game_board.postDelayed({
+            game_board?.postDelayed({
                 for (pos: Int in flippedUpCards) {
-                    game_board.flip(pos, false)
+                    game_board?.flip(pos, false)
                 }
                 flippedUpCards.clear()
             }, CARD_ANIM_DELAY_DUR)
         }
+    }
+
+    private fun initGameModels() {
+        game = arguments?.getParcelable(GAME_KEY)!!
+        val numPairs = (game.cols * game.rows) / 2
+        if (game.cards.size <= numPairs) return
+
+        for (i in 0 until numPairs) {
+            cards.add(game.cards[i])
+            cards.add(game.cards[i])
+        }
+        cards.shuffle()
     }
 
     private fun updateTurnsCount() {

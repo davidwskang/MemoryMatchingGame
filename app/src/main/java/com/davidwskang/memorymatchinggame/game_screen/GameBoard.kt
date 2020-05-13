@@ -34,13 +34,13 @@ class GameBoard : GridView {
     var listener: GameBoardListener? = null
         set(value) {
             field = value
-            numColumns = listener!!.getCurrentGame().cols
+            numColumns = listener!!.getGameModel().cols
             val dp = Resources.getSystem().displayMetrics
             adapter = CardsAdapter(
                 context!!,
                 listener!!.getCards(),
-                dp.getCardHeight(this.listener!!.getCurrentGame().rows),
-                dp.getCardWidth(this.listener!!.getCurrentGame().cols)
+                dp.getCardHeight(this.listener!!.getGameModel().rows),
+                dp.getCardWidth(this.listener!!.getGameModel().cols)
             )
             setOnItemClickListener { _, _, position, _ ->
                 if (!flipping) {
@@ -108,7 +108,7 @@ class GameBoard : GridView {
     }
 
     interface GameBoardListener {
-        fun getCurrentGame(): Game
+        fun getGameModel(): Game
         fun getCards(): List<GameCard>
         fun onCardSelected(position: Int)
         fun onCardAnimationComplete()
