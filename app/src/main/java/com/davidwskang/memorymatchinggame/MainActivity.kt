@@ -2,6 +2,7 @@ package com.davidwskang.memorymatchinggame
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.davidwskang.memorymatchinggame.common.Game
 import com.davidwskang.memorymatchinggame.common.GameCard
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
 
         val splash = SplashScreenFragment()
         supportFragmentManager
@@ -29,9 +31,8 @@ class MainActivity : AppCompatActivity() {
         currFrag = splash
     }
 
-    fun onSplashScreenComplete() {
-        removeThenAddFrag(HomeFragment(), true)
-    }
+    fun onSplashScreenComplete() = removeThenAddFrag(HomeFragment(), true)
+
 
     fun onGameModeSelected(gameDifficulty: GameDifficulty) {
         val game = Game.make(gameDifficulty, cards)
